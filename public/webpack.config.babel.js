@@ -73,7 +73,7 @@ let config = {
             inject: 'body',// 有四个选项值 true|body|head|false。true|body:script标签位于html文件的 body 底部；head:插入的js文件位于head标签内；false:不插入生成的js文件，只生成一个纯html
             // minify: {"removeComments": true, "collapseWhitespace": true},//压缩
             // minify: false,//不压缩
-            favicon: 'src/assets/img/favicon.ico',//给定的图标路径，可将其添加到输出html中。
+            favicon: 'assets/img/favicon.ico',//给定的图标路径，可将其添加到输出html中。
             // excludeChunks: [],//排除特定块
             // chunks: [],//限定特定的块
             banner: {//打包分支、时间、tag标
@@ -101,7 +101,6 @@ let config = {
             //请求带api的接口 自动转发到端口7308
             '/api'  : {target: "http://localhost:7308"},
             '/app'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'.html'}},
-            '/mobile'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'.html'}},
             '/'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'app.html'}}
           }
     }
