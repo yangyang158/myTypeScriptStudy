@@ -4,8 +4,9 @@ import HtmlWebpackPlugin  from 'html-webpack-plugin';
 //获取版本的相关信息
 import gitRevision from 'git-revision';
 //将.css样式打包到一个单独的CSS文件中。因此样式不再被内嵌到JS包中，而是在单独的CSS文件
-import ExtractTextWebpackPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import moment from 'moment';
+
 import _ from 'lodash';
 
 //获取当前环境
@@ -18,6 +19,7 @@ let port = '6001';
 let timetag = moment().format('YYMMDD_HHmmss');
 
 let config = {
+    mode: ENV,
     entry: "./src/app.tsx",
     output: {//输出文件
         path: __dirname + '/dest',//输出文件的路径---必须是绝对路径
@@ -29,18 +31,15 @@ let config = {
     },
     module: {
         rules: [
-            {//解析css, 会将CSS打包到JS文件中
-                test: /\.css$/, 
-                use: ['style-loader', 'css-loader'],
-            },
-            // {
-            //     //解析css, 会将CSS单独打包成一个文件
-            //     test: /\.css$/,
-            //     loader: ExtractTextWebpackPlugin.extract({
-            //         fallback: "style-loader",
-            //         use: "css-loader"
-            //     })
+            // {//解析css, 会将CSS打包到JS文件中
+            //     test: /\.css$/, 
+            //     use: ['style-loader', 'css-loader'],
             // },
+            {
+                //解析css, 会将CSS单独打包成一个文件
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
             {//对tsx、ts文件进行编译
                 test: /\.tsx?$/,
                 loader: "awesome-typescript-loader",
@@ -62,10 +61,10 @@ let config = {
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
     plugins: [
-        // new ExtractTextWebpackPlugin({
-        //     filename: '[name].[contenthash:8].css',
-        //     allChunks: true//将多个CSS文件打包到一个CSS文件
-        // }),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: '[name].[contenthash:8].css'  // use contenthash *
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({//单个入口文件生成html文件
             title: 'app',// 用于生成的HTML文件的标题

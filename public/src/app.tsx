@@ -1,11 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import {render} from 'react-dom';
 import Router from './app/router';
+import './app.css';
 
-console.log(window.document)
-console.log(window.document.querySelector('div'))
-let app = window.document.createElement('div');
-window.document.body.appendChild(app);
+let app = document.createElement('div');
+document.body.appendChild(app);
 
-render(<div>111</div>, app);
+render(<Router />, app);
 
