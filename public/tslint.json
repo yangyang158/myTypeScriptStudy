@@ -1,0 +1,17 @@
+{
+    "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+    "linterOptions": {
+        "exclude": [
+            "config/**/*.js",
+            "node_modules/**/*.ts"
+        ]
+    },
+    "rules": {
+        "ordered-imports": false,
+        "no-var-keyword": true,
+        "no-console": false,
+        "no-consecutive-blank-lines":[true, 2],
+        "max-line-length":[true, 120]
+    }
+}
+  
