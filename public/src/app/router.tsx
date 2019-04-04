@@ -4,10 +4,11 @@ import * as  _ from 'lodash';
 
 export default class MainIndex extends React.Component {
 
-    componentDidMount(){
-        console.log('lodash求和', _.add(1, 4))
+    public componentDidMount(){
+        const name = 'yy'
     }
-    render(){
+
+    public render(){
         return (
             <p>
                 学习typescript react！！
