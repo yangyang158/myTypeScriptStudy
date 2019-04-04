@@ -3,7 +3,7 @@ import * as React from 'react';
 
 export default class Siderbar extends React.Component{
 
-    public render(){
+    render(){
         return(
             <div className="sider-bar">
                 <ul>
@@ -11,6 +11,6 @@ export default class Siderbar extends React.Component{
                     <li><a href="#/upload">上传</a></li>
                 </ul>
             </div>
-        ); 
+        )
     }
 }

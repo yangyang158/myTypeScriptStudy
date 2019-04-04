@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Route, Switch, Redirect, HashRouter, } from 'react-router-dom';
 
-import Siderbar from './siderbar/index'; 
+import Siderbar from './siderbar/index';
 import Home from './module/home/index';
 
 export default class MainIndex extends React.PureComponent {
 
 
-    public render(){
+    render(){
         return (
             <HashRouter>
                <div>

@@ -10,11 +10,28 @@
         "ordered-imports": false,
         "no-var-keyword": true,
         "no-console": false,
+        "no-debugger":true,
         "no-consecutive-blank-lines": [true, 2],
         "max-line-length": [true, 120],
         "no-empty": true,
         "await-promise": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "indent":[true, "spaces", 4],
+        "member-access": false,
+        "member-ordering": false,
+        "no-trailing-whitespace": [
+            true,
+            "ignore-comments",
+            "ignore-jsdoc"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ]
     }
 }
   
