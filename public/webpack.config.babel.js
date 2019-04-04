@@ -6,6 +6,7 @@ const gitRevision = require('git-revision');
 //将.css样式打包到一个单独的CSS文件中。因此样式不再被内嵌到JS包中，而是在单独的CSS文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const moment = require('moment');
+const path = require('path');
 
 //获取当前环境
 let args = require('node-args');
@@ -27,6 +28,14 @@ let config = {
         //publicPath: '/public/',//用于指定在生产模式下页面里面引入的资源的路径（link标签的href、script标签的src）
 
     },
+        //处理文件的扩展名,import文件时不带文件扩展名时默认添加.tsx
+        resolve: {
+            // Add '.ts' and '.tsx' as resolvable extensions.
+            extensions: [".ts", ".tsx", ".js", ".json"],
+            alias: {
+                '@component': path.resolve(__dirname + '/src/app/component'),
+            }
+        },
     module: {
         rules: [
             // {//解析css, 会将CSS打包到JS文件中
@@ -53,11 +62,6 @@ let config = {
         ],
     },
     devtool: 'source-map',//是否可调试
-    //处理文件的扩展名,import文件时不带文件扩展名时默认添加.tsx
-    resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
-    },
     plugins: [
         new MiniCssExtractPlugin({
             filename: "[name].css",
