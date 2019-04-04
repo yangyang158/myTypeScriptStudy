@@ -10,8 +10,10 @@
         "ordered-imports": false,
         "no-var-keyword": true,
         "no-console": false,
-        "no-consecutive-blank-lines":[true, 2],
-        "max-line-length":[true, 120]
+        "no-consecutive-blank-lines": [true, 2],
+        "max-line-length": [true, 120],
+        "no-empty": true,
+        "await-promise": true
     }
 }
   

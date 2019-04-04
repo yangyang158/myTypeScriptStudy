@@ -9,7 +9,8 @@
     "build": "npm run clean && webpack --env=production --progress --colors",
     "clean": "rimraf dest",
     "tslint": "tslint ./src/**/*.{ts,tsx}",
-    "precommit": "npm run tslint"
+    "precommit": "npm run tslint",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "author": "",
   "license": "ISC",
