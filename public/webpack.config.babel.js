@@ -1,13 +1,11 @@
-import webpack from 'webpack';
+const webpack = require('webpack');
 //作用：自动生成 HTML 文件，使用 script 来包含所有你的 webpack bundles
-import HtmlWebpackPlugin  from 'html-webpack-plugin';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 //获取版本的相关信息
-import gitRevision from 'git-revision';
+const gitRevision = require('git-revision');
 //将.css样式打包到一个单独的CSS文件中。因此样式不再被内嵌到JS包中，而是在单独的CSS文件
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import moment from 'moment';
-
-import _ from 'lodash';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const moment = require('moment');
 
 //获取当前环境
 let args = require('node-args');

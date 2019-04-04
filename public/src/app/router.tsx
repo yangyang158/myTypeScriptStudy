@@ -10,7 +10,7 @@ export default class MainIndex extends React.Component {
     render(){
         return (
             <p>
-                学习react！！
+                学习typescript react！！
             </p>
         )
     }
