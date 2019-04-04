@@ -1,18 +1,27 @@
 import * as React from 'react';
-import { render } from 'react-dom';
-import * as  _ from 'lodash';
+import { Route, Switch, Redirect, HashRouter, } from 'react-router-dom';
 
-export default class MainIndex extends React.Component {
+import Siderbar from './siderbar/index'; 
+import Home from './module/home/index';
 
-    public componentDidMount(){
-        const name = 'yy'
-    }
+export default class MainIndex extends React.PureComponent {
+
 
     public render(){
         return (
-            <p>
-                学习typescript react！！
-            </p>
+            <HashRouter>
+               <div>
+                    <Siderbar />
+                    <div className="module-container">
+                        <main>
+                            <Switch>
+                                <Route exact={true} path="/home" component={Home}/>
+                                <Redirect to="/home" />
+                            </Switch>
+                        </main>
+                    </div>
+                </div>
+            </HashRouter>
         )
     }
 };
