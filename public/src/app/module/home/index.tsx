@@ -4,7 +4,10 @@ import Button from '@component/button';
 export default class Home extends React.Component{
 
     clickBtn = () => {
-        this.add(1, 6)
+          this.add(1, 6)
+
+
+          
     }
 
     // add的参数、返回值必须是number类型
