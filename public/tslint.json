@@ -13,6 +13,7 @@
         "no-debugger":true,
         "no-consecutive-blank-lines": [true, 2],
         "max-line-length": [true, 120],
+        "eqeqeq": ["warn", "always"],
         "no-empty": true,
         "await-promise": true,
         "noImplicitAny": false,
