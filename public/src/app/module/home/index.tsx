@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash";
+import axios from 'axios';
 import AddButton from "@component/button";
 import { Input, Alert, Modal, Button, DatePicker, message } from "antd";
 
@@ -29,6 +30,10 @@ export default class Home extends React.Component {
         this.setState({
             visible: false
         });
+        axios.get('/api/home/cardList')
+        .then((response) => {
+            console.log(response);
+        })
     };
 
     clickBtn = () => {

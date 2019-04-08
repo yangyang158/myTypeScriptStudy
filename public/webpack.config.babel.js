@@ -1,4 +1,7 @@
 const webpack = require('webpack');
+const merge = require('webpack-merge');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 //作用：自动生成 HTML 文件，使用 script 来包含所有你的 webpack bundles
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //获取版本的相关信息
@@ -13,7 +16,7 @@ let args = require('node-args');
 let ENV = args.env || 'development';
 let isProduction = ENV === 'production';
 
-console.log('__dirname', __dirname)// 为：/Users/candy/个人练习/myReact/public
+console.log('isProduction', isProduction)// 为：/Users/candy/个人练习/myReact/public
 let port = '6001';
 let timetag = moment().format('YYMMDD_HHmmss');
 
@@ -28,14 +31,14 @@ let config = {
         //publicPath: '/public/',//用于指定在生产模式下页面里面引入的资源的路径（link标签的href、script标签的src）
 
     },
-        //处理文件的扩展名,import文件时不带文件扩展名时默认添加.tsx
-        resolve: {
-            // Add '.ts' and '.tsx' as resolvable extensions.
-            extensions: [".ts", ".tsx", ".js", ".json"],
-            alias: {
-                '@component': path.resolve(__dirname + '/src/app/component'),
-            }
-        },
+    //处理文件的扩展名,import文件时不带文件扩展名时默认添加.tsx
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: [".ts", ".tsx", ".js", ".json"],
+        alias: {
+            '@component': path.resolve(__dirname + '/src/app/component'),
+        }
+    },
     module: {
         rules: [
             // {//解析css, 会将CSS打包到JS文件中
@@ -59,8 +62,41 @@ let config = {
                 test: /\.(png|jpg|gif)(\?[a-z0-9\-=]+)?$/,
                 loader: 'url-loader?limit=8192',
             },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            { 
+                enforce: "pre", 
+                test: /\.js$/, 
+                loader: "source-map-loader" 
+            }
         ],
+    },
+    optimization: {
+        runtimeChunk: {
+            name: 'manifest'
+        },
+        splitChunks:{
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: false,
+            cacheGroups: {
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    priority: -10,
+                    reuseExistingChunk: false,
+                    test: /node_modules\/(.*)\.ts[x]?/
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.(less|css)$/,
+                    minChunks: 1,
+                    reuseExistingChunk: true,
+                    enforce: true
+                }
+            }
+        }
     },
     devtool: 'source-map',//是否可调试
     plugins: [
@@ -86,27 +122,39 @@ let config = {
             },
         }),
 
-    ],
-    devServer: {//webpack-dev-server是一个小型的Node.js Express服务器
-        host: 'localhost',
-        port: port,
-        hot: true,//热替换
-        open: true, // 自动打开浏览器
-        openPage: 'app',//此时就会在打开http://localhost:${port}/app
-        lazy: false,
-        compress: true, //一切服务都启用gzip 压缩
-        headers: {
-            'X-Frame-Options': 'SAMEORIGIN',
-            'X-XSS-Protection': '1; mode=block',
-        },
-        disableHostCheck: true,
-        proxy: {
-            //请求带api的接口 自动转发到端口7308
-            '/api'  : {target: "http://localhost:7308"},
-            '/app'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'.html'}},
-            '/'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'app.html'}}
-          }
-    }
+    ]
+}
+
+switch(ENV){
+    case 'production':
+        config = merge(config, {
+            
+        });
+        break;
+    case 'development':
+        config = merge(config, {
+            devServer: {//webpack-dev-server是一个小型的Node.js Express服务器
+                host: 'localhost',
+                port: port,
+                hot: true,//热替换
+                open: true, // 自动打开浏览器
+                openPage: 'app',//此时就会在打开http://localhost:${port}/app
+                lazy: false,
+                compress: true, //一切服务都启用gzip 压缩
+                headers: {
+                    'X-Frame-Options': 'SAMEORIGIN',
+                    'X-XSS-Protection': '1; mode=block',
+                },
+                disableHostCheck: true,
+                proxy: {
+                    //请求带api的接口 自动转发到端口7308
+                    '/api'  : {target: "http://localhost:7308"},
+                    '/app'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'.html'}},
+                    '/'  : {target: `http://localhost:${port}`, pathRewrite: {'$':'app.html'}}
+                  }
+            }    
+        });
+        break;
 }
 
 module.exports = config;
