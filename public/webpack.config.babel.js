@@ -48,7 +48,8 @@ let config = {
                 use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             {//对tsx、ts文件进行编译
-                test: /\.tsx?$/,
+                test: /\.(tsx|ts)?$/,
+                exclude: /node_modules/g,
                 loader: "awesome-typescript-loader",
             },
             {//webpack最终会将各个模块打包成一个文件，项目中图片的地址就找不到了
