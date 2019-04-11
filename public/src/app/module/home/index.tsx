@@ -1,9 +1,11 @@
 import * as React from "react";
 import * as _ from "lodash";
+import {observer} from 'mobx-react';
 import axios from 'axios';
 import AddButton from "@component/button";
 import { Input, Alert, Modal, Button, DatePicker, message, Form } from "antd";
 const ButtonGroup = Button.Group;
+import store from './store';
 
 const tailFormItemLayout = {
     wrapperCol: {
@@ -17,7 +19,7 @@ const tailFormItemLayout = {
         },
     },
 };
-
+@observer
 export class Home extends React.Component<any> {
     constructor(props: any) {
         super(props);
@@ -64,12 +66,7 @@ export class Home extends React.Component<any> {
     };
 
     clickBtn = () => {
-        this.add(1, 6);
-    };
-
-    // add的参数、返回值必须是number类型
-    add = (num1: number, num2: number): number => {
-        return num1 + num2;
+        store.add(1, 6);
     };
 
     handleChange = date => {
@@ -131,13 +128,12 @@ export class Home extends React.Component<any> {
         const listC = list.map((item, index) => {
             return <p key={index}>{item}</p>;
         });
-        const sum = this.add(1, 6);
         const { getFieldDecorator, getFieldsError, setFieldsValue } = this.props.form;
 
         return (
             <div className="home">
                 <AddButton text="以1递增" onClick={this.clickBtn} />
-                <p>求和：{sum}</p>
+                <p>求和：{store.sum}</p>
                 <p>遍历生成节点</p>
                 {listC}
                 <Form onSubmit={this.handleSubmit}>
