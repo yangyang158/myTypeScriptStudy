@@ -1,5 +1,5 @@
 {
-    "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+    "extends": ["tslint:recommended", "tslint-eslint-rules", "tslint-react", "tslint-config-prettier"],
     "linterOptions": {
         "exclude": [
             "config/**/*.js",
@@ -9,15 +9,14 @@
     "rules": {
         "ordered-imports": false,
         "no-var-keyword": true,
-        "no-console": false,
         "no-debugger":true,
-        "no-consecutive-blank-lines": [true, 2],
+        "no-consecutive-blank-lines": [true, { "max": 1}],
         "max-line-length": [true, 120],
         "eqeqeq": ["warn", "always"],
         "no-empty": true,
-        "await-promise": true,
+        "no-eval": true,
+        "no-var-requires": true,
         "noImplicitAny": false,
-        "indent":[true, "spaces", 4],
         "member-access": false,
         "member-ordering": false,
         "no-trailing-whitespace": [
@@ -32,7 +31,20 @@
             "check-operator",
             "check-separator",
             "check-type"
-        ]
+        ],
+        "object-literal-sort-keys": false,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "no-multi-spaces": "error",
+        "no-extra-semi": "error",
+        "no-sparse-arrays": "error",
+        "max-len": ["error", { "code": 120 }],
+        "block-spacing": "error",
+        "no-regex-spaces": "error",
+        "ter-arrow-spacing": "error",
+        "no-console": ["warn", "always"]
     }
 }
   
