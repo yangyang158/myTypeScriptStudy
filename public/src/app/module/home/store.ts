@@ -9,4 +9,4 @@ class HomeStore {
     }
 }
 
-export default new HomeStore;
+export default new HomeStore();
