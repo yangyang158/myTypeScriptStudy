@@ -33,6 +33,6 @@ export default class AddButton extends React.Component<IProps, IState> {
                 <button onClick={this.onClick}>{text}</button>
                 {this.state.count}
             </div>
-        );
+        )
     }
 }
